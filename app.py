@@ -19,3 +19,7 @@ def create():
     color = request.form.get("color")
     year = request.form.get("year")
     return db.cars_create(title, description, image, make, model, color, year)
+
+@app.route('/cars.json')
+def index():
+    return db.cars_all()
