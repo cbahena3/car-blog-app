@@ -51,3 +51,17 @@ def initial_setup():
 
 if __name__ == "__main__":
     initial_setup()
+
+
+def cars_create(title, description, image, make, model, color, year):
+    conn = connect_to_db()
+    row = conn.execute(
+        """
+        INSERT INTO cars (title, description, image, make, model, color, year)
+        VALUES (?, ?, ?)
+        RETURNING *
+        """,
+        (title, description, image, make, model, color, year),
+    ).fetchone()
+    conn.commit()
+    return dict(row)
