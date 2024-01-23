@@ -42,7 +42,7 @@ def initial_setup():
     conn.executemany(
         """
         INSERT INTO cars (title, description, image, make, model, color, year)
-        VALUES (?,?,?)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
         """,
         cars_seed_data,
     )
