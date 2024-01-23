@@ -1,5 +1,6 @@
 import db
 from flask import Flask, request
+from flask_cors import CORS
 
 app = Flask(__name__)
 
@@ -23,6 +24,10 @@ def create():
 @app.route('/cars.json')
 def index():
     return db.cars_all()
+
+@app.route("/cars/<id>.json", methods=["DELETE"])
+def destroy(id):
+    return db.cars_destroy_by_id(id)
 
 @app.route("/cars/<id>.json")
 def show(id):
