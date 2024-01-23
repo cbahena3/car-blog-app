@@ -12,3 +12,7 @@ def hello():
 @app.route('/cars.json')
 def index():
     return db.cars_all()
+
+@app.route("/cars/<id>.json")
+def show(id):
+    return db.cars_find_by_id(id)
