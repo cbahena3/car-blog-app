@@ -62,6 +62,18 @@ def cars_all():
     return [dict(row) for row in rows]
 
 
+def cars_find_by_id(id):
+    conn = connect_to_db()
+    row = conn.execute(
+        """
+        SELECT * FROM cars
+        WHERE id = ?
+        """,
+        id,
+    ).fetchone()
+    return dict(row)
+
+
 if __name__ == "__main__":
     initial_setup()
 

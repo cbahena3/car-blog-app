@@ -28,3 +28,7 @@ def index():
 @app.route("/cars/<id>.json", methods=["DELETE"])
 def destroy(id):
     return db.cars_destroy_by_id(id)
+
+@app.route("/cars/<id>.json")
+def show(id):
+    return db.cars_find_by_id(id)
