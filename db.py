@@ -78,3 +78,16 @@ def cars_create(title, description, image, make, model, color, year):
     ).fetchone()
     conn.commit()
     return dict(row)
+
+
+def cars_destroy_by_id(id):
+    conn = connect_to_db()
+    row = conn.execute(
+        """
+        DELETE from cars
+        WHERE id = ?
+        """,
+        id,
+    )
+    conn.commit()
+    return {"message": "Car destroyed successfully"}
