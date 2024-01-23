@@ -109,5 +109,18 @@ def cars_update_by_id(id, title, description, image, make, model, color, year):
     return dict(updated_row)
 
 
+def cars_destroy_by_id(id):
+    conn = connect_to_db()
+    row = conn.execute(
+        """
+        DELETE from cars
+        WHERE id = ?
+        """,
+        id,
+    )
+    conn.commit()
+    return {"message": "Car destroyed successfully"}
+
+
 if __name__ == "__main__":
     initial_setup()
