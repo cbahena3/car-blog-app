@@ -62,22 +62,6 @@ def cars_all():
     return [dict(row) for row in rows]
 
 
-def cars_find_by_id(id):
-    conn = connect_to_db()
-    row = conn.execute(
-        """
-        SELECT * FROM cars
-        WHERE id = ?
-        """,
-        id,
-    ).fetchone()
-    return dict(row)
-
-
-if __name__ == "__main__":
-    initial_setup()
-
-
 def cars_create(title, description, image, make, model, color, year):
     conn = connect_to_db()
     row = conn.execute(
@@ -90,3 +74,40 @@ def cars_create(title, description, image, make, model, color, year):
     ).fetchone()
     conn.commit()
     return dict(row)
+
+
+def cars_find_by_id(id):
+    conn = connect_to_db()
+    row = conn.execute(
+        """
+        SELECT * FROM cars
+        WHERE id = ?
+        """,
+        id,
+    ).fetchone()
+    return dict(row)
+
+
+def cars_update_by_id(id, title, description, image, make, model, color, year):
+    conn = connect_to_db()
+    conn.execute(
+        """
+        UPDATE cars SET title = ?, description = ?, image = ?, make = ?, model = ?, color = ?, year = ?
+        WHERE id = ?
+        """,
+        (title, description, image, make, model, color, year, id),
+    )
+    conn.commit()
+    updated_row = conn.execute(
+        """
+        SELECT * FROM cars WHERE id = ?
+        """,
+        (id,),
+    ).fetchone()
+    conn.close()
+
+    return dict(updated_row)
+
+
+if __name__ == "__main__":
+    initial_setup()
